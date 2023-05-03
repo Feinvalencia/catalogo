@@ -16,11 +16,15 @@ import image4 from './assets/4.jpeg';
 
 const imagen = [image1, image2, image3, image4];
 interface BookType {
-  current: {
-    pageFlip(): {
-      turnToPage(page: number): void;
-    };
-  } | null;
+  pageFlip?: any;
+}
+
+interface IProps {
+  startPage?: number;
+  drawShadow?: boolean;
+  flippingTime?: number;
+  usePortrait?: boolean;
+  // y así sucesivamente
 }
 const settings = {
   dots: false,
@@ -251,7 +255,7 @@ function App() {
     // console.log(book.current, "book")
   }; */
   const buttonPage = (page: number) => {
-    book.current.pageFlip().turnToPage(page);
+    book.current?.pageFlip().turnToPage(page);
   };
   const [currentPage, setCurrentPage] = useState(0);
   console.log(currentPage, 'currentPage');
@@ -349,6 +353,7 @@ function App() {
         )}
 
         <HTMLFlipBook
+          
           height={733}
           width={700}
           style={{ margin: 'auto' }}
@@ -363,6 +368,7 @@ function App() {
           className='demo-book'
           ref={book}
           onFlip={onFlip}
+
         >
           <PageCover src={'../public/Tecnolite2022v2-1.jpg'}></PageCover>
           <PageCover src={'../public/Tecnolite2022v2-2.jpg'}></PageCover>
