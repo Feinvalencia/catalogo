@@ -1,4 +1,4 @@
-import { useRef, forwardRef, ReactNode, useState } from 'react';
+import { useRef, forwardRef, ReactNode, useState, RefObject } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { FaCartPlus } from 'react-icons/fa';
 import { BiXCircle } from 'react-icons/bi';
@@ -15,7 +15,13 @@ import image3 from './assets/3.jpeg';
 import image4 from './assets/4.jpeg';
 
 const imagen = [image1, image2, image3, image4];
-
+interface BookType {
+  current: {
+    pageFlip(): {
+      turnToPage(page: number): void;
+    };
+  } | null;
+}
 const settings = {
   dots: false,
   infinite: true,
@@ -234,16 +240,22 @@ const PageLeft = forwardRef<any, PageProps>((props, ref) => {
   );
 }; */
 function App() {
-  const book = useRef(null);
+  const book: RefObject<BookType> = useRef(null);
+  /*   const book = useRef<BookType>(null); */
   // const [book, setBook] = useState(null);
   const [selected, setSelected] = useState<any>(undefined);
   // console.log('selected', selected);
   // console.log('book', book);
-  const buttonPage = (page: number) => {
+  /*   const buttonPage = (page: number) => {
     book.current.pageFlip().turnToPage(page);
     // console.log(book.current, "book")
+  }; */
+  const buttonPage = (page: number) => {
+    book.current.pageFlip().turnToPage(page);
   };
   const [currentPage, setCurrentPage] = useState(0);
+  console.log(currentPage, 'currentPage');
+
   const onFlip = useCallback((e: any) => {
     setCurrentPage(e.data);
   }, []);
@@ -339,6 +351,7 @@ function App() {
         <HTMLFlipBook
           height={733}
           width={700}
+          style={{ margin: 'auto' }}
           size='fixed'
           minWidth={615}
           maxWidth={1500}
