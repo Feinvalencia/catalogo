@@ -1,4 +1,4 @@
-import { useRef, forwardRef, ReactNode, useState, Children } from 'react';
+import { useRef, forwardRef, ReactNode, useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { FaCartPlus } from 'react-icons/fa';
 import { BiXCircle } from 'react-icons/bi';
@@ -7,8 +7,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'animate.css';
 import './App.css';
-import images from './exports/images';
+/* import * as images from './exports/images'; */
 import { useCallback } from 'react';
+import image1 from './assets/1.jpeg';
+import image2 from './assets/2.jpeg';
+import image3 from './assets/3.jpeg';
+import image4 from './assets/4.jpeg';
+
+const imagen = [image1, image2, image3, image4];
 
 const settings = {
   dots: false,
@@ -19,7 +25,6 @@ const settings = {
   arrow: true,
   autoplay: true,
 };
-const animacion = 'https://assets7.lottiefiles.com/packages/lf20_xYvGhX.json';
 const buttoms = [
   {
     name: 'SEGURIDAD',
@@ -114,7 +119,7 @@ const PageCover = forwardRef<any, PageProps>((props, ref) => {
     <div
       className='page page-cover'
       ref={ref}
-      onMouseDownCapture={(event) => {
+      onMouseDownCapture={() => {
         // props.setSelected(undefined);
         return;
       }}
@@ -150,7 +155,7 @@ const PageLeft = forwardRef<any, PageProps>((props, ref) => {
     <div
       className='page'
       ref={ref}
-      onMouseDownCapture={(event) => {
+      onMouseDownCapture={() => {
         /*           event.stopPropagation();
       event.preventDefault();
       event.nativeEvent.stopImmediatePropagation(); */
@@ -163,6 +168,7 @@ const PageLeft = forwardRef<any, PageProps>((props, ref) => {
           return (
             <div
               style={{ top: point.y, left: point.x }}
+              key={point.x + point.y}
               tabIndex={1}
               className='point'
               onMouseDownCapture={(event) => {
@@ -214,7 +220,7 @@ const PageLeft = forwardRef<any, PageProps>((props, ref) => {
     </div>
   );
 }); */
-const BlockColor = ({ color }) => {
+/* const BlockColor = (color: any) => {
   return (
     <div
       style={{
@@ -226,7 +232,7 @@ const BlockColor = ({ color }) => {
       }}
     ></div>
   );
-};
+}; */
 function App() {
   const book = useRef(null);
   // const [book, setBook] = useState(null);
@@ -238,7 +244,7 @@ function App() {
     // console.log(book.current, "book")
   };
   const [currentPage, setCurrentPage] = useState(0);
-  const onFlip = useCallback((e) => {
+  const onFlip = useCallback((e: any) => {
     setCurrentPage(e.data);
   }, []);
 
@@ -300,7 +306,7 @@ function App() {
             <div style={{ marginBottom: '1rem' }}>
               {/*                 <h2> Single Item</h2> */}
               <Slider {...settings}>
-                {images.map((image) => {
+                {imagen.map((image) => {
                   return (
                     <div className='item'>
                       <img src={image} />
