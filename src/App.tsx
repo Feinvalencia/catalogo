@@ -370,8 +370,8 @@ function App() {
           onFlip={onFlip}
 
         >
-          <PageCover src={'../public/Tecnolite2022v2-1.jpg'}></PageCover>
-          <PageCover src={'../public/Tecnolite2022v2-2.jpg'}></PageCover>
+          <PageCover src={'../public/Tecnolite2022v2-1.jpg'} />
+          <PageCover src={'../public/Tecnolite2022v2-2.jpg'} />
 
           {pages.map((page, index) => (
             <PageLeft
